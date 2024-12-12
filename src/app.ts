@@ -7,7 +7,10 @@ import { resolvers } from '@/graphql/resolvers/index.js';
 import { typeDefs } from '@/graphql/typedefs/index.js';
 import { apiRequestLogger } from '@/logging/logger.js';
 import { errorHandler } from '@/middlewares/globalErrorHandler.js';
+import { rootRouter } from '@/routes/index.js';
 import { formatError } from '@/utils/graphqlErrorFormat.js';
+
+import { authenticateJWT } from './middlewares/jwtValidator.js';
 
 const app = express();
 
@@ -31,7 +34,9 @@ app.get('/health', (_req, res) => {
     return res.send('healthy');
 });
 
-app.use('/graphql', expressMiddleware(server));
+app.use('/graphql', authenticateJWT, expressMiddleware(server));
+
+app.use('/v1', rootRouter);
 
 app.use(errorHandler);
 
