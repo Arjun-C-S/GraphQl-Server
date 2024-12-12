@@ -1,0 +1,5 @@
+echo "[Husky] Running Prettier..."
+npm run format
+
+echo "[Husky] Running lint..."
+npm run lint
