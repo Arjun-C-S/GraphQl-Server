@@ -1,6 +1,10 @@
+import type { Request } from 'express';
+
 import { MovieModel } from '@/models/user.models.js';
 import type { Movie } from '@/types/movie.types.js';
+import { ApiError } from '@/utils/apiError.js';
 import { responseMessage } from '@/utils/responseMessage.js';
+import { RESPONSE_STATUS } from '@/utils/responseStatus.js';
 
 export const resolvers = {
     Query: {
@@ -51,7 +55,14 @@ export const resolvers = {
             return responseMessage.MOVIE.UPDATED;
         },
 
-        deleteMovie: async (_: any, args: { movieId: number }) => {
+        deleteMovie: async (_: any, args: { movieId: number }, { req }: { req: Request }) => {
+            // Only permits to delete the resource if logged as administrator
+            if (req.user !== 'admin@gmail.com') {
+                throw new ApiError(RESPONSE_STATUS.FORBIDDEN, {
+                    message: 'Only admin can delete movies...',
+                });
+            }
+
             const deletedMovie = await MovieModel.findOneAndDelete({ movieId: args.movieId });
 
             if (!deletedMovie) return responseMessage.MOVIE.NOT_FOUND;

@@ -1,5 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import cors from 'cors';
 import express from 'express';
 
@@ -18,6 +19,7 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     formatError,
+    cache: new InMemoryLRUCache(),
 });
 
 // Note you must call `start()` on the `ApolloServer`
@@ -34,7 +36,7 @@ app.get('/health', (_req, res) => {
     return res.send('healthy');
 });
 
-app.use('/graphql', authenticateJWT, expressMiddleware(server));
+app.use('/graphql', authenticateJWT, expressMiddleware(server, { context: async ({ req }) => ({ req }) }));
 
 app.use('/v1', rootRouter);
 

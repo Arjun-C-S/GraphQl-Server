@@ -31,9 +31,9 @@ const authenticateJWT = (req: Request, _res: Response, next: NextFunction) => {
             });
         }
 
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const { email } = jwt.verify(token, JWT_SECRET) as { email: string };
 
-        logger.info(decoded);
+        req.user = email;
 
         next();
     } catch (error) {
