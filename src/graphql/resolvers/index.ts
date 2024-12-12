@@ -25,7 +25,7 @@ export const resolvers = {
             return responseMessage.MOVIE.CREATED;
         },
 
-        updateMovie: async (_: any, args: { movieId: Number; movie: Movie }) => {
+        updateMovie: async (_: any, args: { movieId: number; movie: Movie }) => {
             const updatedMovie = await MovieModel.findOneAndUpdate(
                 { movieId: args.movieId },
                 {
@@ -43,7 +43,7 @@ export const resolvers = {
             return responseMessage.MOVIE.UPDATED;
         },
 
-        deleteMovie: async (_: any, args: { movieId: Number }) => {
+        deleteMovie: async (_: any, args: { movieId: number }) => {
             const deletedMovie = await MovieModel.findOneAndDelete({ movieId: args.movieId });
 
             if (!deletedMovie) return responseMessage.MOVIE.NOT_FOUND;

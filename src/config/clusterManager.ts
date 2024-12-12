@@ -5,7 +5,7 @@ import { logger } from '@/logging/logger.js';
 
 import { app } from '../app.js';
 
-const startCluster = (PORT: Number) => {
+const startCluster = (PORT: number) => {
     const numCpus = cpus().length;
 
     if (cluster.isPrimary) {

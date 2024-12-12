@@ -1,9 +1,9 @@
 interface Movie {
-    _id?: String;
-    title: String;
-    director: String;
+    _id?: string;
+    title: string;
+    director: string;
     releaseYear: number;
-    genre: String;
+    genre: string;
     rating: number;
 }
 

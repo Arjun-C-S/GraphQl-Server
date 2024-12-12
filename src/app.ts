@@ -3,11 +3,11 @@ import { expressMiddleware } from '@apollo/server/express4';
 import cors from 'cors';
 import express from 'express';
 
+import { resolvers } from '@/graphql/resolvers/index.js';
+import { typeDefs } from '@/graphql/typedefs/index.js';
 import { apiRequestLogger } from '@/logging/logger.js';
 import { errorHandler } from '@/middlewares/globalErrorHandler.js';
 import { formatError } from '@/utils/graphqlErrorFormat.js';
-import { resolvers } from '@/graphql/resolvers/index.js';
-import { typeDefs } from '@/graphql/typedefs/index.js';
 
 const app = express();
 
