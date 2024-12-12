@@ -4,8 +4,16 @@ import { responseMessage } from '@/utils/responseMessage.js';
 
 export const resolvers = {
     Query: {
-        movies: async () => {
-            return await MovieModel.find();
+        movies: async (_: any, args: { limit: number; offset: number; genre: string; director: string }) => {
+            const query: { genre?: string; director?: string } = {};
+
+            // Apply filters if genre or director is provided
+            if (args.genre) query.genre = args.genre;
+            if (args.director) query.director = args.director;
+
+            return await MovieModel.find(query)
+                .skip(args.offset || 0)
+                .limit(args.limit || 10);
         },
     },
 
