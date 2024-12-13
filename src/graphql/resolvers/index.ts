@@ -1,5 +1,6 @@
 import type { Request } from 'express';
 
+import { getSocket } from '@/middlewares/socket.js';
 import { MovieModel } from '@/models/user.models.js';
 import type { Movie } from '@/types/movie.types.js';
 import { ApiError } from '@/utils/apiError.js';
@@ -33,6 +34,9 @@ export const resolvers = {
             });
 
             await movie.save();
+
+            const io = getSocket();
+            io.to('movie_creation').emit('movie_creation', JSON.stringify(movie));
 
             return responseMessage.MOVIE.CREATED;
         },
