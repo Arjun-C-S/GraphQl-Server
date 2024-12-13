@@ -1,3 +1,5 @@
+import { Server } from 'http';
+
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
@@ -12,8 +14,13 @@ import { rootRouter } from '@/routes/index.js';
 import { formatError } from '@/utils/graphqlErrorFormat.js';
 
 import { authenticateJWT } from './middlewares/jwtValidator.js';
+import { socketConnecter } from './middlewares/socket.js';
 
 const app = express();
+
+const httpServer = new Server(app);
+
+socketConnecter(httpServer);
 
 const server = new ApolloServer({
     typeDefs,
@@ -42,4 +49,4 @@ app.use('/v1', rootRouter);
 
 app.use(errorHandler);
 
-export { app };
+export { httpServer };

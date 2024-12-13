@@ -3,7 +3,7 @@ import { cpus } from 'os';
 
 import { logger } from '@/logging/logger.js';
 
-import { app } from '../app.js';
+import { httpServer } from '../app.js';
 
 const startCluster = (PORT: number) => {
     const numCpus = cpus().length;
@@ -19,7 +19,7 @@ const startCluster = (PORT: number) => {
             cluster.fork();
         });
     } else {
-        app.listen(PORT, () => {
+        httpServer.listen(PORT, () => {
             logger.info(`Worker ${process.pid} is running on port ${PORT}`);
         });
     }
