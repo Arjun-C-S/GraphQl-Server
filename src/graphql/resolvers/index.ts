@@ -56,7 +56,7 @@ export const resolvers = {
         },
 
         deleteMovie: async (_: any, args: { movieId: number }, { req }: { req: Request }) => {
-            // Only permits to delete the resource if logged as administrator
+            // Only admin can delete movies
             if (req.user !== 'admin@gmail.com') {
                 throw new ApiError(RESPONSE_STATUS.FORBIDDEN, {
                     message: 'Only admin can delete movies...',
