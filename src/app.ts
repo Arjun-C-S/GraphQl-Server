@@ -20,6 +20,7 @@ const app = express();
 
 const httpServer = new Server(app);
 
+// Attach Socket.IO to the HTTP server for real-time communication
 socketConnecter(httpServer);
 
 const server = new ApolloServer({
@@ -29,8 +30,6 @@ const server = new ApolloServer({
     cache: new InMemoryLRUCache(),
 });
 
-// Note you must call `start()` on the `ApolloServer`
-// instance before passing the instance to `expressMiddleware`
 await server.start();
 
 app.use(cors());
@@ -43,6 +42,7 @@ app.get('/health', (_req, res) => {
     return res.send('healthy');
 });
 
+// GraphQL endpoint with JWT authentication and context setup
 app.use('/graphql', authenticateJWT, expressMiddleware(server, { context: async ({ req }) => ({ req }) }));
 
 app.use('/v1', rootRouter);

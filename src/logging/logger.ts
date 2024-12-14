@@ -1,6 +1,14 @@
 import type { Request, Response, NextFunction } from 'express';
 import { format, createLogger, transports } from 'winston';
 
+/**
+ * Custom log format for the application
+ *
+ * The format combines the timestamp, label (e.g., 'graphql'), log level (e.g., 'info', 'error'),
+ * and the actual log message into a single log line.
+ *
+ */
+
 const { combine, label, timestamp, printf } = format;
 
 const timestampFormat = 'MMM-DD-YYYY HH:mm:ss';

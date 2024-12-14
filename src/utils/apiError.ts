@@ -1,3 +1,10 @@
+/**
+ * Interface for API error structure
+ *
+ * This interface defines the structure for custom API errors,
+ * including the HTTP status code and error message.
+ *
+ */
 export interface APIErrorType {
     statusCode: number;
     message: any;
