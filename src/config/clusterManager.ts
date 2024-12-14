@@ -5,6 +5,15 @@ import { logger } from '@/logging/logger.js';
 
 import { httpServer } from '../app.js';
 
+/**
+ * Cluster setup for Node.js server to utilize multiple CPU cores.
+ *
+ * This module handles the clustering of the application using Node's `cluster` module.
+ * It creates a master process that forks a worker process for each CPU core available.
+ * Each worker process runs an instance of the HTTP server. If a worker dies, a new one is forked.
+ *
+ */
+
 const startCluster = (PORT: number) => {
     const numCpus = cpus().length;
 

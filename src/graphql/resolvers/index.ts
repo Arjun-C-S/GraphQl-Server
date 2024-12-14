@@ -7,6 +7,17 @@ import { ApiError } from '@/utils/apiError.js';
 import { responseMessage } from '@/utils/responseMessage.js';
 import { RESPONSE_STATUS } from '@/utils/responseStatus.js';
 
+/**
+ * GraphQL resolvers for movie management.
+ *
+ * The resolvers handle queries and mutations for managing movies, including:
+ * - Query for fetching a list of movies with optional filters (genre, director) and pagination.
+ * - Mutation for creating a new movie and emitting a real-time event for movie creation.
+ * - Mutation for updating an existing movie by its ID.
+ * - Mutation for deleting a movie, restricted to admin users only.
+ *
+ */
+
 export const resolvers = {
     Query: {
         movies: async (_: any, args: { limit: number; offset: number; genre: string; director: string }) => {

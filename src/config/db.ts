@@ -1,5 +1,14 @@
 import mongoose from 'mongoose';
 
+/**
+ * Establishes a connection to the MongoDB database using Mongoose.
+ *
+ * This function connects to the database using the connection string provided in
+ * the `DATABASE_URL` environment variable. If the connection is successful, a
+ * success message is logged. If the connection fails, the error message is logged.
+ *
+ */
+
 async function dbConnection() {
     try {
         const { DATABASE_URL } = process.env;

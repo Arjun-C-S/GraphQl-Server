@@ -1,3 +1,11 @@
+/**
+ * Enumeration for HTTP response status codes
+ *
+ * This enum provides a clear mapping of common HTTP status codes to descriptive constants
+ * for improved readability and maintainability in the codebase.
+ *
+ */
+
 enum RESPONSE_STATUS {
     SUCCESS = 200,
     CREATED = 201,

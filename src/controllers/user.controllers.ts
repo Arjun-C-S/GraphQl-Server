@@ -8,6 +8,15 @@ import { responseMessage } from '@/utils/responseMessage.js';
 import { RESPONSE_STATUS } from '@/utils/responseStatus.js';
 import { createUserValidator, type CreateUserType } from '@/validators/user.validators.js';
 
+/**
+ * Controller for handling user login.
+ *
+ * This function processes the user login request, validates the input using the `createUserValidator`,
+ * and generates a JWT token for authenticated users. The token is returned in the response along with
+ * a success message. If the input validation fails, an error is thrown with the validation issues.
+ *
+ */
+
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
     const body = req.body;
 

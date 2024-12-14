@@ -6,6 +6,15 @@ import { logger } from '@/logging/logger.js';
 
 import { httpServer } from './app.js';
 
+/**
+ * GraphQl + Socket.io server application
+ *
+ * This application serves as both a GraphQL server and a Socket.io server for real-time communication.
+ * The server supports multi-threading in production using a cluster manager and listens on a single
+ *  thread in development.
+ *
+ */
+
 config();
 
 dbConnection();
