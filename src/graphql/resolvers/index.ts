@@ -1,11 +1,10 @@
 import type { Request } from 'express';
+import { GraphQLError } from 'graphql';
 
 import { getSocket } from '@/middlewares/socket.js';
 import { MovieModel } from '@/models/user.models.js';
 import type { Movie } from '@/types/movie.types.js';
-import { ApiError } from '@/utils/apiError.js';
 import { responseMessage } from '@/utils/responseMessage.js';
-import { RESPONSE_STATUS } from '@/utils/responseStatus.js';
 
 /**
  * GraphQL resolvers for movie management.
@@ -73,8 +72,10 @@ export const resolvers = {
         deleteMovie: async (_: any, args: { movieId: number }, { req }: { req: Request }) => {
             // Only admin can delete movies
             if (req.user !== 'admin@gmail.com') {
-                throw new ApiError(RESPONSE_STATUS.FORBIDDEN, {
-                    message: 'Only admin can delete movies...',
+                throw new GraphQLError('You are not authorized to perform this action.', {
+                    extensions: {
+                        code: 'FORBIDDEN',
+                    },
                 });
             }
 
